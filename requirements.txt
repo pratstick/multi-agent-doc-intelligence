@@ -1,0 +1,22 @@
+# Agent orchestration
+langgraph>=0.2.74
+langchain-core>=0.3.81
+langchain-groq>=0.3.2
+langchain-community>=0.3.27
+
+# Vector store
+faiss-cpu>=1.9.0
+
+# Embeddings
+sentence-transformers>=3.4.1
+
+# Markdown parsing
+markdown-it-py>=3.0.0
+
+# Config / env
+python-dotenv>=1.1.0
+pydantic>=2.11.1
+
+# Testing
+pytest>=8.3.5
+pytest-mock>=3.14.0
