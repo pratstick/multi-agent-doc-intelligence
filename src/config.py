@@ -17,6 +17,7 @@ DATA_DIR = ROOT_DIR / "data"
 RAW_DIR = DATA_DIR / "raw"
 INDEX_DIR = DATA_DIR / "index"
 
+RAW_DIR.mkdir(parents=True, exist_ok=True)
 INDEX_DIR.mkdir(parents=True, exist_ok=True)
 
 # ---------------------------------------------------------------------------
@@ -28,9 +29,7 @@ GROQ_MODEL: str = os.environ.get("GROQ_MODEL", "llama3-8b-8192")
 # ---------------------------------------------------------------------------
 # Embeddings
 # ---------------------------------------------------------------------------
-EMBEDDING_MODEL: str = os.environ.get(
-    "EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2"
-)
+EMBEDDING_MODEL: str = os.environ.get("EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
 
 # ---------------------------------------------------------------------------
 # Retrieval

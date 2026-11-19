@@ -2,13 +2,12 @@
 
 from __future__ import annotations
 
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import numpy as np
 import pytest
 
 from src.retrieval.vectorstore import VectorStore
-
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -53,6 +52,7 @@ def _make_chunks(n: int = 10, chunk_type: str = "prose") -> list[dict]:
 # ---------------------------------------------------------------------------
 # VectorStore.build + query
 # ---------------------------------------------------------------------------
+
 
 class TestVectorStoreBuildQuery:
     def test_build_and_query_returns_results(self):
@@ -163,6 +163,7 @@ class TestVectorStoreBuildQuery:
 # ---------------------------------------------------------------------------
 # VectorStore.save + load
 # ---------------------------------------------------------------------------
+
 
 class TestVectorStorePersistence:
     def test_save_and_load_round_trip(self, tmp_path):

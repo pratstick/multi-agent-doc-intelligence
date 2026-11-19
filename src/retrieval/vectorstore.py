@@ -10,10 +10,8 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Optional
 
 import faiss
-import numpy as np
 
 from src.config import (
     FAISS_INDEX_FILE,
@@ -44,7 +42,7 @@ class VectorStore:
     ) -> None:
         self._embedder = embedder
         self._index_dir = Path(index_dir)
-        self._index: Optional[faiss.IndexFlatL2] = None
+        self._index: faiss.IndexFlatL2 | None = None
         self._metadata: list[dict] = []
 
     # ------------------------------------------------------------------
@@ -91,8 +89,7 @@ class VectorStore:
         meta_path = self._index_dir / FAISS_META_FILE
         if not index_path.exists() or not meta_path.exists():
             raise FileNotFoundError(
-                f"FAISS index not found in {self._index_dir}. "
-                "Run the ingestion pipeline first."
+                f"FAISS index not found in {self._index_dir}. Run the ingestion pipeline first."
             )
         self._index = faiss.read_index(str(index_path))
         self._metadata = json.loads(meta_path.read_text(encoding="utf-8"))
@@ -105,7 +102,7 @@ class VectorStore:
         self,
         query_text: str,
         top_k: int = RETRIEVAL_TOP_K,
-        chunk_type: Optional[str] = None,
+        chunk_type: str | None = None,
     ) -> list[dict]:
         """Return the top-*k* most similar chunks for *query_text*.
 
@@ -139,7 +136,7 @@ class VectorStore:
         distances, indices = self._index.search(query_vec, fetch_k)
 
         results: list[dict] = []
-        for dist, idx in zip(distances[0], indices[0]):
+        for dist, idx in zip(distances[0], indices[0], strict=False):
             if idx < 0:
                 continue
             meta = dict(self._metadata[idx])

@@ -50,7 +50,7 @@ def _route_by_intent(state: AgentState) -> str:
     return state.get("intent", "conceptual")
 
 
-def build_graph(vector_store: VectorStore) -> "CompiledGraph":  # noqa: F821
+def build_graph(vector_store: VectorStore) -> CompiledGraph:  # noqa: F821
     """Construct and compile the LangGraph pipeline.
 
     Parameters

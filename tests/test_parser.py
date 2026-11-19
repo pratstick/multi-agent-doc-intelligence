@@ -2,11 +2,8 @@
 
 from __future__ import annotations
 
-import pytest
-
-from src.ingestion.chunker import chunk_records, _split_prose
+from src.ingestion.chunker import _split_prose, chunk_records
 from src.ingestion.parser import parse_markdown
-
 
 # ---------------------------------------------------------------------------
 # Parser tests
@@ -66,9 +63,7 @@ def test_parse_header_path_nesting():
     """header_path must reflect the nesting at the point of each record."""
     records = parse_markdown(SIMPLE_DOC)
     # The Quick Start prose is under H1 > H2 > H3
-    quick_start = next(
-        r for r in records if "main function" in r.get("text", "")
-    )
+    quick_start = next(r for r in records if "main function" in r.get("text", ""))
     assert quick_start["header_path"] == ["Introduction", "Installation", "Quick Start"]
 
 
@@ -125,6 +120,7 @@ def test_parse_code_language_empty_when_unspecified():
 # ---------------------------------------------------------------------------
 # Chunker tests
 # ---------------------------------------------------------------------------
+
 
 def test_chunk_code_records_are_not_split():
     """Code chunks must pass through unchanged regardless of size."""

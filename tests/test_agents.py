@@ -8,16 +8,15 @@ from __future__ import annotations
 
 from unittest.mock import MagicMock, patch
 
-import pytest
 from langchain_core.messages import AIMessage
 
 from src.agents import conceptual_agent, implementation_agent, router_agent
 from src.pipeline.state import AgentState
 
-
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def _make_ai_message(content: str) -> AIMessage:
     return AIMessage(content=content)
@@ -38,6 +37,7 @@ def _base_state(**overrides) -> AgentState:
 # ---------------------------------------------------------------------------
 # Router Agent
 # ---------------------------------------------------------------------------
+
 
 class TestRouterAgent:
     @patch("src.agents.router_agent.ChatGroq")
@@ -100,6 +100,7 @@ class TestRouterAgent:
 # ---------------------------------------------------------------------------
 # Conceptual Agent
 # ---------------------------------------------------------------------------
+
 
 class TestConceptualAgent:
     def _make_store(self, chunks: list[dict]) -> MagicMock:
@@ -167,6 +168,7 @@ class TestConceptualAgent:
 # ---------------------------------------------------------------------------
 # Implementation Agent
 # ---------------------------------------------------------------------------
+
 
 class TestImplementationAgent:
     def _make_store(self, code_chunks: list[dict], prose_chunks: list[dict]) -> MagicMock:

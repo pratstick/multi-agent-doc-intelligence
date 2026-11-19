@@ -49,9 +49,7 @@ def _format_chunks(chunks: list[dict]) -> str:
         header = " > ".join(chunk.get("header_path", []))
         source = chunk.get("source_file", "unknown")
         text = chunk.get("text", "")
-        parts.append(
-            f"--- Excerpt {i} [Section: {header}] (source: {source}) ---\n{text}"
-        )
+        parts.append(f"--- Excerpt {i} [Section: {header}] (source: {source}) ---\n{text}")
     return "\n\n".join(parts)
 
 
@@ -70,15 +68,10 @@ def answer(state: AgentState, vector_store: VectorStore) -> AgentState:
     AgentState
         Updated state with ``retrieved_chunks`` and ``response`` populated.
     """
-    chunks = vector_store.query(
-        state["query"], top_k=RETRIEVAL_TOP_K, chunk_type="prose"
-    )
+    chunks = vector_store.query(state["query"], top_k=RETRIEVAL_TOP_K, chunk_type="prose")
 
     context = _format_chunks(chunks)
-    user_message_content = (
-        f"Documentation context:\n\n{context}\n\n"
-        f"Question: {state['query']}"
-    )
+    user_message_content = f"Documentation context:\n\n{context}\n\nQuestion: {state['query']}"
 
     llm = _build_llm()
     messages = [

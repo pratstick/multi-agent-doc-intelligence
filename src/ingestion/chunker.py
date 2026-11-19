@@ -20,7 +20,6 @@ from copy import deepcopy
 
 from src.config import CHUNK_MAX_CHARS, CHUNK_OVERLAP_CHARS
 
-
 # ---------------------------------------------------------------------------
 # Internal helpers
 # ---------------------------------------------------------------------------
@@ -79,6 +78,7 @@ def _overlap_prefix(previous_text: str, overlap_chars: int) -> str:
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
+
 
 def chunk_records(
     records: list[dict],

@@ -26,15 +26,15 @@ Record schema (dict)
 
 from __future__ import annotations
 
+from collections.abc import Generator
 from pathlib import Path
-from typing import Generator
 
 from markdown_it import MarkdownIt
-
 
 # ---------------------------------------------------------------------------
 # Internal helpers
 # ---------------------------------------------------------------------------
+
 
 def _heading_level(token_markup: str) -> int:
     """Return integer heading level from the ``markup`` field (e.g. ``"##"`` → 2)."""
@@ -55,6 +55,7 @@ def _update_header_path(header_path: list[str], level: int, text: str) -> list[s
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
+
 
 def parse_markdown(content: str, source_file: str = "") -> list[dict]:
     """Parse *content* (a Markdown string) into a list of section records.

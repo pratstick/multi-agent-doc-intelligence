@@ -56,8 +56,7 @@ def _format_chunks(chunks: list[dict], label: str) -> str:
         text = chunk.get("text", "")
         lang_tag = f" [{lang}]" if lang else ""
         parts.append(
-            f"--- {label} {i}{lang_tag} [Section: {header}] "
-            f"(source: {source}) ---\n{text}"
+            f"--- {label} {i}{lang_tag} [Section: {header}] (source: {source}) ---\n{text}"
         )
     return "\n\n".join(parts)
 
@@ -77,9 +76,7 @@ def answer(state: AgentState, vector_store: VectorStore) -> AgentState:
     AgentState
         Updated state with ``retrieved_chunks`` and ``response`` populated.
     """
-    code_chunks = vector_store.query(
-        state["query"], top_k=RETRIEVAL_TOP_K, chunk_type="code"
-    )
+    code_chunks = vector_store.query(state["query"], top_k=RETRIEVAL_TOP_K, chunk_type="code")
     # Fetch a smaller number of prose chunks as supporting context.
     prose_chunks = vector_store.query(
         state["query"], top_k=max(2, RETRIEVAL_TOP_K // 2), chunk_type="prose"
@@ -94,10 +91,7 @@ def answer(state: AgentState, vector_store: VectorStore) -> AgentState:
         context_parts.append(_format_chunks(prose_chunks, "Context"))
     context = "\n\n".join(context_parts)
 
-    user_message_content = (
-        f"Documentation context:\n\n{context}\n\n"
-        f"Request: {state['query']}"
-    )
+    user_message_content = f"Documentation context:\n\n{context}\n\nRequest: {state['query']}"
 
     llm = _build_llm()
     messages = [
